@@ -1,4 +1,3 @@
-import java.applet.Applet;
 import java.awt.*;
 
 public class MapManager {
@@ -26,10 +25,17 @@ public class MapManager {
     }
 
     public void initTileset() {
-
+      ImageManager img = new ImageManager("tileset", "tileset.png");
+      tileset = img.getSprite();
     }
 
-    private Image addImage(String filename) {
-        return getImage(getCodeBase(), filename);
+    public display() {
+      for(int i = 0 ; i < MAP_LAYERS ; i++) {
+        for(int x = 0 ; x < MAP_WIDTH ; x++) {
+          for(int y = 0 ; y < MAP_HEIGHT ; y++) {
+            
+          }
+        }
+      }
     }
 }

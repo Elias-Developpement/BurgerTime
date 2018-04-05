@@ -1,6 +1,7 @@
 import java.awt.*;
 
 /*
+Frog position
 HAUT : 0
 BAS : 1
 GAUCHE : 2
