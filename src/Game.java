@@ -1,6 +1,7 @@
 import java.awt.*;
+import java.applet.Applet;
 
-public class Game extends javax.swing.JFrame implements Runnable {
+public class Game extends Applet implements Runnable {
 
     private boolean active;
 
@@ -12,10 +13,10 @@ public class Game extends javax.swing.JFrame implements Runnable {
      * Creates new form Game
      */
     public Game() {
-        active = false;
-        player = new Frog(10, 10);
-        objs = 10;
-        frog_saved = 0;
+      active = false;
+      player = new Frog(10, 10);
+      objs = 10;
+      frog_saved = 0;
     }
 
     public boolean isActive() {
@@ -27,10 +28,10 @@ public class Game extends javax.swing.JFrame implements Runnable {
             // Update screen
             repaint();
             try {
-                Thread.sleep(20);
+              Thread.sleep(20);
             }
             catch(InterruptedException ex) {
-
+              // Do nothing
             }
 
             update();
@@ -46,9 +47,9 @@ public class Game extends javax.swing.JFrame implements Runnable {
     }
 
     public void objectives() {
-        if(frog_saved == objs) {
-            // Fin de la partie
-        }
+      if(frog_saved == objs) {
+          // Fin de la partie
+      }
     }
 
     public void getCollisions() {
@@ -56,8 +57,8 @@ public class Game extends javax.swing.JFrame implements Runnable {
     }
 
     public void initialize() {
-        Thread t = new Thread(this);
-        t.start();
+      Thread t = new Thread(this);
+      t.start();
     }
 
     public static void main(String args[]) {

@@ -12,25 +12,25 @@ public class Frog extends Object {
     private Image currentSprite;
 
     public Frog(int x, int y) {
-        setX(x);
-        setY(y);
+      setX(x);
+      setY(y);
     }
 
     public void initFrog(Image[] frog) {
-        this.spritesheet = frog;
-        currentSprite = spritesheet[0];
+      this.spritesheet = frog;
+      currentSprite = spritesheet[0];
     }
 
     public void updateFrog(int direction) {
-        this.currentSprite = this.spritesheet[direction];
+      this.currentSprite = this.spritesheet[direction];
     }
 
     public void setPosition(int x, int y) {
-        setX(x);
-        setY(y);
+      setX(x);
+      setY(y);
     }
 
     public void draw(Graphics g) {
-        g.drawImage(currentSprite, getX(), getY(), null);
+      g.drawImage(currentSprite, getX(), getY(), null);
     }
 }

@@ -5,26 +5,26 @@ public class Car extends Object {
     public Image sprite;
 
     public Car() {
-        this.speed = 4;
+      this.speed = 4;
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+      this.speed = speed;
     }
 
     public int getSpeed() {
-        return this.speed;
+      return this.speed;
     }
 
     public void setCar(Image car) {
-        this.sprite = car;
+      this.sprite = car;
     }
 
     public Image getSprite() {
-        return this.sprite;
+      return this.sprite;
     }
 
     public void draw(Graphics g) {
-        g.drawImage(getSprite(), getX(), getY(), null);
+      g.drawImage(getSprite(), getX(), getY(), null);
     }
 }
