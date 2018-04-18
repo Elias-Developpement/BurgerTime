@@ -15,10 +15,10 @@ public class MapManager {
     }
 
     public void initMap() {
-        for(int i = 0 ; i < MAP_LAYERS ; i += 32) {
-            for(int x = 0 ; x < MAP_WIDTH ; x += 32) {
-                for(int y = 0 ; y < MAP_HEIGHT ; y++) {
-                    map[x][y][i] = 0;
+        for(int i = 0 ; i < MAP_LAYERS ; i++) {
+            for(int x = 0 ; x < MAP_WIDTH / 32 ; x++) {
+                for(int y = 0 ; y < MAP_HEIGHT / 32 ; y++) {
+                    map[x][y][i] = 1;
                 }
             }
         }
