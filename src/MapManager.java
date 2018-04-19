@@ -1,15 +1,13 @@
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MapManager {
-    public static final int MAP_WIDTH = 672;
-    public static final int MAP_HEIGHT = 480;
+    public static final int MAP_WIDTH = 13 * 32;
+    public static final int MAP_HEIGHT = 15 * 32;
     public static final int MAP_LAYERS = 2;
-    private static final String SPACE_SEPARATOR = " ";
 
     private int[][] map;
     private Image tileset;
@@ -21,16 +19,58 @@ public class MapManager {
     }
 
     public void initMap() {
-      FileInputStream f = new FileInputStream(new File("map.txt"));
+      FileInputStream input = null;
+      InputStreamReader stream = null;
+      LineNumberReader reader = null;
+
+      List<Integer> list = new ArrayList<Integer>();
+
+      try {
+        input = new FileInputStream(new File("map.txt"));
+        stream = new InputStreamReader(input);
+      	reader = new LineNumberReader(stream);
+        String line = null;
+
+        while((line = reader.readLine()) != null) {
+          String[] tempValues = line.split(" ");
+          for(String s : tempValues) {
+            list.add(Integer.parseInt(s));
+          }
+        }
+
+        reader.close();
+        stream.close();
+        input.close();
+      }
+      catch(IOException e) {
+        e.printStackTrace();
+      }
+
+      int i = 0;
+      int j = 0;
+
+      for(int k = 0 ; k < list.size() ; k++) {
+        map[i][j] = list.get(k);
+        i++;
+
+        if(i >= (MAP_WIDTH / 32) && j <= (MAP_HEIGHT / 32)) {
+          i = 0;
+          j++;
+        }
+      }
+    }
+
+    public void debug() {
       for(int x = 0 ; x < MAP_WIDTH / 32 ; x++) {
           for(int y = 0 ; y < MAP_HEIGHT / 32 ; y++) {
-              map[x][y] =
+              System.out.print(map[x][y] + " ");
           }
+          System.out.println("");
       }
     }
 
     public void initTileset() {
-      ImageManager img = new ImageManager("tileset", "tileset.png");
+      ImageManager img = new ImageManager("tileset.png");
       tileset = img.getSprite();
     }
 

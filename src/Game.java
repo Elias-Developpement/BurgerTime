@@ -15,7 +15,7 @@ public class Game extends JPanel implements Runnable {
      * Creates new form Game
      */
     public Game() {
-      player = new Frog(10, 10);
+      player = new Frog();
       map = new MapManager();
 
       active = false;
@@ -104,5 +104,56 @@ public class Game extends JPanel implements Runnable {
                           this);
           }
       }
+
+      /*switch(player.getCurrentSprite()) {
+        case 0:
+          g.drawImage(player.getSprite(),
+                      player.getX(),
+                      player.getY(),
+                      player.getX() + 32,
+                      player.getY() + 32,
+                      player.UP * 32,
+                      player.UP * 32,
+                      player.UP * 32 + 32,
+                      player.UP * 32 + 32,
+                      this);
+          break;
+        case 1:
+        g.drawImage(player.getSprite(),
+                    player.getX(),
+                    player.getY(),
+                    player.getX() + 32,
+                    player.getY() + 32,
+                    player.DOWN * 32,
+                    player.DOWN * 32,
+                    player.DOWN * 32 + 32,
+                    player.DOWN * 32 + 32,
+                    this);
+          break;
+        case 2:
+        g.drawImage(player.getSprite(),
+                    player.getX(),
+                    player.getY(),
+                    player.getX() + 32,
+                    player.getY() + 32,
+                    player.LEFT * 32,
+                    player.LEFT * 32,
+                    player.LEFT * 32 + 32,
+                    player.LEFT * 32 + 32,
+                    this);
+          break;
+        case 3:
+        g.drawImage(player.getSprite(),
+                    player.getX(),
+                    player.getY(),
+                    player.getX() + 32,
+                    player.getY() + 32,
+                    player.RIGHT * 32,
+                    player.RIGHT * 32,
+                    player.RIGHT * 32 + 32,
+                    player.RIGHT * 32 + 32,
+                    this);
+          break;
+      }*/
     }
 }

@@ -7,7 +7,7 @@ import javax.swing.*;
 public class ImageManager {
   private Image sprite;
 
-  public ImageManager(String type, String filename) {
+  public ImageManager(String filename) {
     try {
       sprite = ImageIO.read(new File("../images/" + filename));
     }
@@ -16,7 +16,7 @@ public class ImageManager {
     }
   }
 
-  public void setSprite(String type, String filename) {
+  public void setSprite(String filename) {
     try {
       sprite = ImageIO.read(new File("../images/" + filename));
     }
