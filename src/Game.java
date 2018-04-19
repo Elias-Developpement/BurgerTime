@@ -87,16 +87,22 @@ public class Game extends JPanel implements Runnable {
     }
 
     public void paintComponent(Graphics g) {
-      Graphics2D g2d = (Graphics2D) g;
-      System.out.print("Coucou");
-      g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      //Graphics2D g2d = (Graphics2D) g;
+      //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-      for(int i = 0 ; i < map.MAP_LAYERS ; i++) {
-        for(int x = 0 ; x < map.MAP_WIDTH / 32 ; x++) {
-          for(int y = 0 ; y < map.MAP_HEIGHT / 32 ; y++) {
-            g.drawImage(map.getTileset(), x, y, x + 32, y + 32, map.getTileIndex(x, y, i) % 8, map.getTileIndex(x, y, i) / 8, map.getTileIndex(x, y, i) % 8 + 32, map.getTileIndex(x, y, i) / 8 + 32, this);
+      for(int x = 0 ; x < 21 ; x++) {
+          for(int y = 0 ; y < 16 ; y++) {
+              g.drawImage(map.getTileset(),
+                          x * 32,
+                          y * 32,
+                          x * 32 + 32,
+                          y * 32 + 32,
+                          (int)(map.getTileIndex(x, y) % 8) * 32,
+                          (int)(map.getTileIndex(x, y) / 8) * 32,
+                          (int)(map.getTileIndex(x, y) % 8) * 32 + 32,
+                          (int)(map.getTileIndex(x, y) / 8) * 32 + 32,
+                          this);
           }
-        }
       }
     }
 }

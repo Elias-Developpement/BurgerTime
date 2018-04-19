@@ -1,27 +1,32 @@
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MapManager {
-    public final int MAP_WIDTH = 800;
-    public final int MAP_HEIGHT = 600;
-    public final int MAP_LAYERS = 2;
+    public static final int MAP_WIDTH = 672;
+    public static final int MAP_HEIGHT = 480;
+    public static final int MAP_LAYERS = 2;
+    private static final String SPACE_SEPARATOR = " ";
 
-    private int[][][] map;
+    private int[][] map;
     private Image tileset;
 
     public MapManager() {
-        map = new int[MAP_WIDTH / 32][MAP_HEIGHT / 32][MAP_LAYERS];
-        initTileset();
-        initMap();
+      map = new int[MAP_WIDTH][MAP_HEIGHT];
+      initTileset();
+      initMap();
     }
 
     public void initMap() {
-        for(int i = 0 ; i < MAP_LAYERS ; i++) {
-            for(int x = 0 ; x < MAP_WIDTH / 32 ; x++) {
-                for(int y = 0 ; y < MAP_HEIGHT / 32 ; y++) {
-                    map[x][y][i] = 1;
-                }
-            }
-        }
+      FileInputStream f = new FileInputStream(new File("map.txt"));
+      for(int x = 0 ; x < MAP_WIDTH / 32 ; x++) {
+          for(int y = 0 ; y < MAP_HEIGHT / 32 ; y++) {
+              map[x][y] =
+          }
+      }
     }
 
     public void initTileset() {
@@ -33,7 +38,7 @@ public class MapManager {
       return this.tileset;
     }
 
-    public int getTileIndex(int x, int y, int layer) {
-      return map[x][y][layer];
+    public int getTileIndex(int x, int y) {
+      return map[x][y];
     }
 }

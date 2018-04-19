@@ -4,7 +4,7 @@ public class Window extends JFrame {
   public Window() {
     // Window options
     this.setTitle("Frogger");
-    this.setSize(800, 600);
+    this.setSize(672, 480);
     this.setLocationRelativeTo(null);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
