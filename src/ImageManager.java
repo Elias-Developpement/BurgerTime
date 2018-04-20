@@ -5,7 +5,7 @@ import javax.imageio.*;
 import javax.swing.*;
 
 public class ImageManager {
-  private Image sprite;
+  private BufferedImage sprite;
 
   public ImageManager(String filename) {
     try {
@@ -25,11 +25,19 @@ public class ImageManager {
     }
   }
 
-  public void setSprite(Image img) {
+  public void setSprite(BufferedImage img) {
     sprite = img;
   }
 
+  public int getWidth() {
+    return sprite.getWidth();
+  }
+
+  public int getHeight() {
+    return sprite.getHeight();
+  }
+
   public Image getSprite() {
-    return sprite;
+    return (Image)sprite;
   }
 }

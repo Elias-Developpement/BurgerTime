@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
@@ -8,6 +11,8 @@ public class Game extends JPanel implements KeyListener, Runnable {
 
     private Frog player;
     private MapManager map;
+    List<Car> carsLeft = new ArrayList<Car>();
+    List<Car> carsRight = new ArrayList<Car>();
     private Thread thread;
 
     private int objs;
@@ -18,6 +23,8 @@ public class Game extends JPanel implements KeyListener, Runnable {
     public Game() {
       map = new MapManager();
       player = new Frog();
+      setCars("car_left.png", 0, map.MAP_WIDTH + 32, map.MAP_HEIGHT / 32 * 13);
+      setCars("car_right.png", 0, -32, map.MAP_HEIGHT / 32 * 12);
 
       gameloop = true;
       objs = 10;
@@ -40,6 +47,7 @@ public class Game extends JPanel implements KeyListener, Runnable {
             }
 
             update();
+            updateCars();
             repaint();
         }
     }
@@ -55,7 +63,37 @@ public class Game extends JPanel implements KeyListener, Runnable {
     }
 
     public void update() {
+    }
 
+    public void updateCars() {
+      for(int i = 0 ; i < carsLeft.size() ; i++) {
+        carsLeft.get(i).setX(carsLeft.get(i).getX() - carsLeft.get(i).getSpeed());
+      }
+
+      for(int i = 0 ; i < carsRight.size() ; i++) {
+        carsRight.get(i).setX(carsRight.get(i).getX() - carsRight.get(i).getSpeed());
+      }
+    }
+
+    public void setPaths() {
+
+    }
+
+    public void setCars(String filename, int direction, int x, int y) {
+      Car car = new Car(filename);
+      car.setX(x);
+      car.setY(y);
+
+      switch(direction) {
+        case 0:
+          // Left
+          carsLeft.add(car);
+          break;
+        case 1:
+          // Right
+          carsRight.add(car);
+          break;
+      }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -124,6 +162,14 @@ public class Game extends JPanel implements KeyListener, Runnable {
                           (int)(map.getTileIndex(x, y) / 8) * 32 + 32,
                           this);
           }
+      }
+
+      for(int i = 0 ; i < carsLeft.size() ; i++) {
+        g.drawImage(carsLeft.get(i).getSprite(), carsLeft.get(i).getX(), carsLeft.get(i).getY(), this);
+      }
+
+      for(int i = 0 ; i < carsRight.size() ; i++) {
+        g.drawImage(carsRight.get(i).getSprite(), carsRight.get(i).getX(), carsRight.get(i).getY(), this);
       }
 
      switch(player.getCurrentSprite()) {
