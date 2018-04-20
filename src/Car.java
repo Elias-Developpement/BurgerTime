@@ -11,7 +11,7 @@ public class Car extends Object {
       this.sprite = im.getSprite();
       this.width = im.getWidth();
       this.height = im.getHeight();
-      this.speed = 4;
+      this.speed = 1;
     }
 
     public void setSpeed(int speed) {

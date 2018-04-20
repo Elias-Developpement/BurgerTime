@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 public class Game extends JPanel implements KeyListener, Runnable {
+    private static final long MAX = 2000;
+    private static final long MIN = 1500;
     private boolean gameloop;
 
     private Frog player;
@@ -14,6 +16,8 @@ public class Game extends JPanel implements KeyListener, Runnable {
     List<Car> carsLeft = new ArrayList<Car>();
     List<Car> carsRight = new ArrayList<Car>();
     private Thread thread;
+
+    private Time time;
 
     private int objs;
     private int frog_saved;
@@ -23,8 +27,13 @@ public class Game extends JPanel implements KeyListener, Runnable {
     public Game() {
       map = new MapManager();
       player = new Frog();
-      setCars("car_left.png", 0, map.MAP_WIDTH + 32, map.MAP_HEIGHT / 32 * 13);
-      setCars("car_right.png", 0, -32, map.MAP_HEIGHT / 32 * 12);
+      addCar("car_left.png", 0, 0, 1);
+      addCar("car_right.png", 1, 1, 2);
+      addCar("car_left.png", 0, 2, 3);
+      addCar("car_right.png", 1, 3, 2);
+      addCar("car_left.png", 0, 4, 3);
+
+      time = new Time();
 
       gameloop = true;
       objs = 10;
@@ -46,8 +55,20 @@ public class Game extends JPanel implements KeyListener, Runnable {
               // Do nothing
             }
 
+            long rand = (long)(Math.random() * (MAX - MIN) + MIN);
+            if(time.getElapasedTime() >= rand) {
+              addCar("car_left.png", 0, 0, 1);
+              addCar("car_right.png", 1, 1, 2);
+              addCar("car_left.png", 0, 2, 3);
+              addCar("car_right.png", 1, 3, 2);
+              addCar("car_left.png", 0, 4, 3);
+
+              time.reset();
+            }
+
             update();
             updateCars();
+            checkCollisions();
             repaint();
         }
     }
@@ -68,29 +89,36 @@ public class Game extends JPanel implements KeyListener, Runnable {
     public void updateCars() {
       for(int i = 0 ; i < carsLeft.size() ; i++) {
         carsLeft.get(i).setX(carsLeft.get(i).getX() - carsLeft.get(i).getSpeed());
+
+        if(carsLeft.get(i).getX() <= -32) {
+          carsLeft.remove(i);
+        }
       }
 
       for(int i = 0 ; i < carsRight.size() ; i++) {
-        carsRight.get(i).setX(carsRight.get(i).getX() - carsRight.get(i).getSpeed());
+        carsRight.get(i).setX(carsRight.get(i).getX() + carsRight.get(i).getSpeed());
+
+        if(carsRight.get(i).getX() >= map.MAP_WIDTH + 32) {
+          carsRight.remove(i);
+        }
       }
     }
 
-    public void setPaths() {
-
-    }
-
-    public void setCars(String filename, int direction, int x, int y) {
+    public void addCar(String filename, int direction, int line, int speed) {
       Car car = new Car(filename);
-      car.setX(x);
-      car.setY(y);
+      car.setSpeed(speed);
 
       switch(direction) {
         case 0:
           // Left
+          car.setX(map.MAP_WIDTH + 32);
+          car.setY(256 + (line * 32));
           carsLeft.add(car);
           break;
         case 1:
           // Right
+          car.setX(-32);
+          car.setY(256 + (line * 32));
           carsRight.add(car);
           break;
       }
@@ -134,10 +162,6 @@ public class Game extends JPanel implements KeyListener, Runnable {
       if(frog_saved == objs) {
           // Fin de la partie
       }
-    }
-
-    public void getCollisions() {
-
     }
 
     public void initialize() {
