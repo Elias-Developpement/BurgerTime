@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 public class Game extends JPanel implements KeyListener, Runnable {
-    private static final long MAX = 2000;
-    private static final long MIN = 1500;
+    private static final long MAX = 3000;
+    private static final long MIN = 2000;
     private boolean gameloop;
 
     private Frog player;
@@ -84,6 +84,39 @@ public class Game extends JPanel implements KeyListener, Runnable {
     }
 
     public void update() {
+    }
+
+    public void checkCollisions() {
+      for(int i = 0 ; i < carsLeft.size() ; i++) {
+        if(carsLeft.get(i).getX() > player.getX() &&
+           carsLeft.get(i).getY() > player.getY() &&
+           carsLeft.get(i).getX() + 32 < player.getX() &&
+           carsLeft.get(i).getY() + 32 < player.getY()) {
+             // Collision
+             System.out.println("Collision");
+             player.collision();
+           }
+      }
+
+      for(int i = 0 ; i < carsRight.size() ; i++) {
+        if(carsRight.get(i).getX() > player.getX() &&
+           carsRight.get(i).getY() > player.getY() &&
+           carsRight.get(i).getX() + 32 < player.getX() &&
+           carsRight.get(i).getY() + 32 < player.getY()) {
+             // Collision
+             System.out.println("Collision");
+             player.collision();
+           }
+      }
+
+      if(player.getLive() <= 0) {
+        endGame();
+      }
+    }
+
+    public void endGame() {
+      gameloop = false;
+      stop();
     }
 
     public void updateCars() {

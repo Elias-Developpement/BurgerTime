@@ -8,6 +8,7 @@ public class Frog extends Object {
 
     private Image sprite;
     private int currentSprite;
+    private int live = 3;
 
     public Frog(int x, int y) {
       setX(x);
@@ -47,5 +48,19 @@ public class Frog extends Object {
 
     public Image getSprite() {
       return sprite;
+    }
+
+    public int getLive() {
+      return live;
+    }
+
+    public void collision() {
+      live--;
+      setX((6 * 32));
+      setY((13 * 32));
+    }
+
+    public void setLive(int live) {
+      this.live = live;
     }
 }
