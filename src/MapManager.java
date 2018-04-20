@@ -16,6 +16,8 @@ public class MapManager {
       map = new int[MAP_WIDTH][MAP_HEIGHT];
       initTileset();
       initMap();
+
+      System.out.println("Map creee");
     }
 
     public void initMap() {

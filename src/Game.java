@@ -1,13 +1,14 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
-public class Game extends JPanel implements Runnable {
-
-    private boolean active;
+public class Game extends JPanel implements KeyListener, Runnable {
+    private boolean gameloop;
 
     private Frog player;
     private MapManager map;
+    private Thread thread;
 
     private int objs;
     private int frog_saved;
@@ -15,44 +16,21 @@ public class Game extends JPanel implements Runnable {
      * Creates new form Game
      */
     public Game() {
-      player = new Frog();
       map = new MapManager();
+      player = new Frog();
 
-      active = false;
+      gameloop = true;
       objs = 10;
       frog_saved = 0;
     }
 
-    public boolean isActive() {
-        return active;
+    public synchronized void start() {
+      thread = new Thread(this, "Display");
+      thread.start();
     }
 
-    /*public int keyDown(Event e, int key) {
-      // Check key pressed and replace the frog + change his current sprite
-      switch(key) {
-        case Event.UP:
-          player.updateFrog(0);
-          player.setPosition(player.getX(), player.getY() - 32);
-          break;
-        case Event.DOWN:
-          player.updateFrog(1);
-          player.setPosition(player.getX(), player.getY() + 32);
-          break;
-        case Event.LEFT:
-          player.updateFrog(2);
-          player.setPosition(player.getX() - 32, player.getY());
-          break;
-        case Event.RIGHT:
-          player.updateFrog(3);
-          player.setPosition(player.getX() + 32, player.getY());
-          break;
-      }
-
-      return 1;
-    }*/
-
     public void run() {
-        while(true) {
+        while(gameloop) {
             // Update screen
             try {
               Thread.sleep(20);
@@ -62,13 +40,56 @@ public class Game extends JPanel implements Runnable {
             }
 
             update();
-            getCollisions();
-
-            objectives();
+            repaint();
         }
     }
 
+    public synchronized void stop() {
+      try {
+        thread.join();
+        System.exit(0);
+      }
+      catch(InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+
     public void update() {
+
+    }
+
+    public void keyPressed(KeyEvent e) {
+      switch(e.getKeyCode()) {
+        case KeyEvent.VK_UP:
+          player.setCurrentSprite(0);
+          if(player.getY() - 32 >= 0) {
+            player.setPosition(player.getX(), player.getY() - 32);
+          }
+          break;
+        case KeyEvent.VK_DOWN:
+          player.setCurrentSprite(1);
+          if(player.getY() + 32 < map.MAP_HEIGHT - 32) {
+            player.setPosition(player.getX(), player.getY() + 32);
+          }
+          break;
+        case KeyEvent.VK_LEFT:
+          player.setCurrentSprite(2);
+          if(player.getX() - 32 >= 0) {
+            player.setPosition(player.getX() - 32, player.getY());
+          }
+          break;
+        case KeyEvent.VK_RIGHT:
+          player.setCurrentSprite(3);
+          if(player.getX() + 32 < map.MAP_WIDTH) {
+            player.setPosition(player.getX() + 32, player.getY());
+          }
+          break;
+      }
+    }
+
+    public void keyReleased(KeyEvent e) {
+    }
+    public void keyTyped(KeyEvent e) {
     }
 
     public void objectives() {
@@ -105,7 +126,7 @@ public class Game extends JPanel implements Runnable {
           }
       }
 
-      /*switch(player.getCurrentSprite()) {
+     switch(player.getCurrentSprite()) {
         case 0:
           g.drawImage(player.getSprite(),
                       player.getX(),
@@ -113,9 +134,9 @@ public class Game extends JPanel implements Runnable {
                       player.getX() + 32,
                       player.getY() + 32,
                       player.UP * 32,
-                      player.UP * 32,
+                      0 * 32,
                       player.UP * 32 + 32,
-                      player.UP * 32 + 32,
+                      0 * 32 + 32,
                       this);
           break;
         case 1:
@@ -125,9 +146,9 @@ public class Game extends JPanel implements Runnable {
                     player.getX() + 32,
                     player.getY() + 32,
                     player.DOWN * 32,
-                    player.DOWN * 32,
+                    0 * 32,
                     player.DOWN * 32 + 32,
-                    player.DOWN * 32 + 32,
+                    0 * 32 + 32,
                     this);
           break;
         case 2:
@@ -137,9 +158,9 @@ public class Game extends JPanel implements Runnable {
                     player.getX() + 32,
                     player.getY() + 32,
                     player.LEFT * 32,
-                    player.LEFT * 32,
+                    0 * 32,
                     player.LEFT * 32 + 32,
-                    player.LEFT * 32 + 32,
+                    0 * 32 + 32,
                     this);
           break;
         case 3:
@@ -149,11 +170,15 @@ public class Game extends JPanel implements Runnable {
                     player.getX() + 32,
                     player.getY() + 32,
                     player.RIGHT * 32,
-                    player.RIGHT * 32,
+                    0 * 32,
                     player.RIGHT * 32 + 32,
-                    player.RIGHT * 32 + 32,
+                    0 * 32 + 32,
                     this);
           break;
-      }*/
+      }
+    }
+
+    public static void main(String []args) {
+      Window window = new Window();
     }
 }
