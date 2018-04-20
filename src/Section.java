@@ -4,6 +4,7 @@ public class Section extends Object {
     private int width;
     private int height;
     private int speed;
+    private int size;
     private Image sprite;
 
     public Section(String filename) {
@@ -22,8 +23,16 @@ public class Section extends Object {
       return this.speed;
     }
 
-    public void setCar(Image car) {
-      this.sprite = car;
+    public void setSize(int size) {
+      this.size = size;
+    }
+
+    public int getSize() {
+      return size;
+    }
+
+    public void setSprite(Image section) {
+      this.sprite = section;
     }
 
     public Image getSprite() {

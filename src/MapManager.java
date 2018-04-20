@@ -83,4 +83,8 @@ public class MapManager {
     public int getTileIndex(int x, int y) {
       return map[x][y];
     }
+
+    public void setTileIndex(int x, int y, int value) {
+      map[x][y] = value;
+    }
 }

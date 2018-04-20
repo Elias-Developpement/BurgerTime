@@ -22,7 +22,7 @@ public class Car extends Object {
       return this.speed;
     }
 
-    public void setCar(Image car) {
+    public void setSprite(Image car) {
       this.sprite = car;
     }
 
