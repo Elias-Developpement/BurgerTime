@@ -58,6 +58,7 @@ public class Frog extends Object {
       live--;
       setX((6 * 32));
       setY((13 * 32));
+      setCurrentSprite(UP);
     }
 
     public void setLive(int live) {

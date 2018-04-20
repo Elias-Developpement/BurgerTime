@@ -88,10 +88,7 @@ public class Game extends JPanel implements KeyListener, Runnable {
 
     public void checkCollisions() {
       for(int i = 0 ; i < carsLeft.size() ; i++) {
-        if(carsLeft.get(i).getX() > player.getX() &&
-           carsLeft.get(i).getY() > player.getY() &&
-           carsLeft.get(i).getX() + 32 < player.getX() &&
-           carsLeft.get(i).getY() + 32 < player.getY()) {
+        if(carsLeft.get(i).getX() / 32 == player.getX() / 32 && carsLeft.get(i).getY() / 32 == player.getY() / 32) {
              // Collision
              System.out.println("Collision");
              player.collision();
@@ -99,10 +96,7 @@ public class Game extends JPanel implements KeyListener, Runnable {
       }
 
       for(int i = 0 ; i < carsRight.size() ; i++) {
-        if(carsRight.get(i).getX() > player.getX() &&
-           carsRight.get(i).getY() > player.getY() &&
-           carsRight.get(i).getX() + 32 < player.getX() &&
-           carsRight.get(i).getY() + 32 < player.getY()) {
+        if(carsRight.get(i).getX() / 32 == player.getX() / 32 && carsRight.get(i).getY() / 32 == player.getY() / 32) {
              // Collision
              System.out.println("Collision");
              player.collision();
